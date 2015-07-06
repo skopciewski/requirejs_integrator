@@ -17,5 +17,5 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-tasks_path = File.join(File.dirname(__FILE__), 'tasks')
+tasks_path = File.join(File.dirname(__FILE__), "tasks")
 Dir["#{tasks_path}/*.rake"].each { |ext| load ext } if defined?(Rake)

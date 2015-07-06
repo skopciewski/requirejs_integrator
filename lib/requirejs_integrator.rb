@@ -1,1 +1,1 @@
-require 'requirejs_integrator/tasks'
+require "requirejs_integrator/tasks"
