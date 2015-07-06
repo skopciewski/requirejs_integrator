@@ -1,6 +1,6 @@
-require 'rspec'
-require 'rspec/given'
-require 'rake'
+require "rspec"
+require "rspec/given"
+require "rake"
 
 RSpec.configure do |config|
   config.expect_with :rspec do |c|
@@ -11,5 +11,5 @@ end
 
 def run_task(task)
   Rake.application.invoke_task task
-  Rake::Task.tasks.each { |t| t.reenable }
+  Rake::Task.tasks.each(&:reenable)
 end

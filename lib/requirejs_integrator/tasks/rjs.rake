@@ -17,47 +17,45 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-require 'exec_executor'
-require 'system_executor'
-require 'stdout_outputter'
+require "exec_executor"
+require "system_executor"
+require "stdout_outputter"
 
 namespace :ri do
-
-  desc 'Compile js'
+  desc "Compile js"
   task :compile do
-    rjs_path = File.join(Gem.datadir('requirejs_integrator'), 'r.js')
-    project_dir = ENV['project_dir'] || 'sinatra_ui'
-    public_dir = ENV['public_dir'] || 'public'
-    rjs_base_dir = ENV['rjs_base_dir'] || 'javascripts'
-    rjs_opt_dir = ENV['rjs_opt_dir'] || 'js'
-    appDir_path = File.join(
+    rjs_path = File.join(Gem.datadir("requirejs_integrator"), "r.js")
+    project_ui_dir = ENV["PROJECT_UI_DIR"] || "."
+    project_public_dir = ENV["PROJECT_PUBLIC_DIR"] || "public"
+    project_js_dir = ENV["PROJECT_JS_DIR"] || "javascripts"
+    project_rjs_dir = ENV["PROJECT_RJS_DIR"] || "js"
+    app_dir_path = File.join(
       Rake.application.original_dir,
-      project_dir,
-      public_dir,
-      rjs_base_dir
+      project_ui_dir,
+      project_public_dir,
+      project_js_dir
     )
     dir_path = File.join(
       Rake.application.original_dir,
-      project_dir,
-      public_dir,
-      rjs_opt_dir
+      project_ui_dir,
+      project_public_dir,
+      project_rjs_dir
     )
-    mainConfigFile_path = File.join(
+    main_config_file_path = File.join(
       Rake.application.original_dir,
-      project_dir,
-      public_dir,
-      rjs_base_dir,
-      'main.js'
+      project_ui_dir,
+      project_public_dir,
+      project_js_dir,
+      "main.js"
     )
     StdoutOutputter::Outputter.new.write "*** Compile js files ***"
-    SystemExecutor::Executor.new.run "node #{rjs_path} -o " \
-      + "config/build.js " \
-      + "appDir=#{appDir_path} " \
-      + "baseUrl=./ " \
-      + "mainConfigFile=#{mainConfigFile_path} " \
-      + "dir=#{dir_path} "
+    SystemExecutor::Executor.new.run "node #{rjs_path} -o \
+      config/build.js \
+      appDir=#{app_dir_path} \
+      baseUrl=./ \
+      mainConfigFile=#{main_config_file_path} \
+      dir=#{dir_path}"
   end
 
-  task c: %w[compile]
-
+  task c: %w(compile)
 end

@@ -17,25 +17,23 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-require 'system_executor'
-require 'stdout_outputter'
+require "system_executor"
+require "stdout_outputter"
 
 namespace :ri do
-
-  desc 'Install default r.js config'
+  desc "Install default r.js config"
   task :config do
     default_config_path = File.join(
-      Gem.datadir('requirejs_integrator'),
-      'build_default.js'
+      Gem.datadir("requirejs_integrator"),
+      "build_default.js"
     )
     current_path = Rake.application.original_dir
-    current_configdir_path = File.join(current_path, 'config')
-    current_config_path = File.join(current_configdir_path, 'build.js')
+    current_configdir_path = File.join(current_path, "config")
+    current_config_path = File.join(current_configdir_path, "build.js")
     unless File.exist?(current_config_path)
-      StdoutOutputter::Outputter.new.write '*** Creating default r.js configuration ***'
+      StdoutOutputter::Outputter.new.write "*** Creating default r.js configuration ***"
       SystemExecutor::Executor.new.run "mkdir -p #{current_configdir_path}"
       SystemExecutor::Executor.new.run "cp #{default_config_path} #{current_config_path}"
     end
   end
-
 end
