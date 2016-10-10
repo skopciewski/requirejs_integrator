@@ -17,6 +17,34 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-require "requirejs_integrator/version"
-require "requirejs_integrator/config"
-require "requirejs_integrator/tasks"
+module RequirejsIntegrator
+  class CommandTemplate
+    def initialize(config:, output: $stdout, executor: ::Kernel)
+      @config = config
+      @output = output
+      @executor = executor
+    end
+
+    def run
+      raise NotImplementedError
+    end
+
+    private
+
+    def config_file_path
+      File.join(
+        Rake.application.original_dir,
+        @config.fetch("project_ui_dir"),
+        @config.fetch("project_config_dir"),
+        @config.fetch("project_requirejs_config_file")
+      )
+    end
+
+    def default_config_file_path
+      File.join(
+        Gem.datadir("requirejs_integrator"),
+        "build.js.default"
+      )
+    end
+  end
+end
