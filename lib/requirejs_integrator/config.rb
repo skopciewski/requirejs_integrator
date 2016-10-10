@@ -17,6 +17,15 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
+require "piko_model"
+
 module RequirejsIntegrator
-  VERSION = "2.0.1".freeze
+  class Config < PikoModel::Model
+    field "project_javascripts_dir", default: "javascripts"
+    field "project_js_compressed_dir", default: "js"
+    field "project_ui_dir", default: "."
+    field "project_public_dir", default: "public"
+    field "project_config_dir", default: "config"
+    field "project_requirejs_config_file", default: "build.js"
+  end
 end

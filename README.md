@@ -4,7 +4,7 @@
 
 ## Assumptions
 
-* joins the `r.js` and its components into project dependencies
+* joins the [r.js][rjs] and its components into project dependencies
 * provides the tasks for the assets management
 * provides the default r.js config
 
@@ -26,17 +26,36 @@ Or install it yourself as:
 
     $ gem install requirejs_integrator
 
+## Configuration
+
+Through `RequirejsIntegrator::Config` class:
+
+```ruby
+config = RequirejsIntegrator::Config.new(
+  "project_javascripts_dir" => "js_dir"     # default: "javascripts"
+  "project_js_compressed_dir" => "jsc_dir"  # default: "js"
+  "project_ui_dir" => "ui_dir"              # default: "."
+  "project_public_dir" => "pub_dir"         # default: "public"
+  "project_config_dir" => "conf"            # default: "config"
+  "project_requirejs_config_file" => "b.js" # default: "build.js"
+)
+```
+
 ## Usage
 
 Add to project's Rakefile:
-```
+```ruby
 require 'requirejs_integrator'
+RequirejsIntegrator::Tasks.load(RequirejsIntegrator::Config.new)
 ```
 
-and list the available tasks:
+and list available tasks:
+```ruby
+bundle exec rake -T
+# rake ri:compile  # Compile js
+# rake ri:config   # Install default r.js config
 ```
-rake -T
-```
+
 
 ## Versioning
 
@@ -51,3 +70,4 @@ See [semver.org][semver]
 5. Create new Pull Request
 
 [semver]: http://semver.org/
+[rjs]: http://requirejs.org/

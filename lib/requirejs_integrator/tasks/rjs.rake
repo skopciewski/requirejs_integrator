@@ -1,6 +1,6 @@
 # encoding: utf-8
 
-# Copyright (C) 2015 Szymon Kopciewski
+# Copyright (C) 2015,2016 Szymon Kopciewski
 #
 # This file is part of RequirejsIntegrator.
 #
@@ -17,44 +17,14 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-require "exec_executor"
-require "system_executor"
-require "stdout_outputter"
+require "requirejs_integrator/command/compile"
 
 namespace :ri do
   desc "Compile js"
   task :compile do
-    rjs_path = File.join(Gem.datadir("requirejs_integrator"), "r.js")
-    project_ui_dir = ENV["PROJECT_UI_DIR"] || "."
-    project_public_dir = ENV["PROJECT_PUBLIC_DIR"] || "public"
-    project_js_dir = ENV["PROJECT_JS_DIR"] || "javascripts"
-    project_rjs_dir = ENV["PROJECT_RJS_DIR"] || "js"
-    app_dir_path = File.join(
-      Rake.application.original_dir,
-      project_ui_dir,
-      project_public_dir,
-      project_js_dir
-    )
-    dir_path = File.join(
-      Rake.application.original_dir,
-      project_ui_dir,
-      project_public_dir,
-      project_rjs_dir
-    )
-    main_config_file_path = File.join(
-      Rake.application.original_dir,
-      project_ui_dir,
-      project_public_dir,
-      project_js_dir,
-      "main.js"
-    )
-    StdoutOutputter::Outputter.new.write "*** Compile js files ***"
-    SystemExecutor::Executor.new.run "node #{rjs_path} -o \
-      config/build.js \
-      appDir=#{app_dir_path} \
-      baseUrl=./ \
-      mainConfigFile=#{main_config_file_path} \
-      dir=#{dir_path}"
+    RequirejsIntegrator::Command::Compile.new(
+      config: RequirejsIntegrator::Tasks.config
+    ).run
   end
 
   task c: %w(compile)
