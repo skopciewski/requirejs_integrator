@@ -35,7 +35,7 @@ module RequirejsIntegrator
       private
 
       def rjs_path
-        File.join(Gem.datadir("requirejs_integrator"), "r.js")
+        File.join(Gem.datadir("requirejs_integrator"), "r.js.bundled")
       end
 
       def app_dir_path
