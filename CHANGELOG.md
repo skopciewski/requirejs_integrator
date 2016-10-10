@@ -1,4 +1,8 @@
-=== 3.0.0 (2016.10.14)
+=== 3.0.1 (2016.10.10)
+
+* update rjs executable
+
+=== 3.0.0 (2016.10.10)
 
 * use minitest instead of rspec
 * logic extracted from task
