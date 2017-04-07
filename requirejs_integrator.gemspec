@@ -1,9 +1,9 @@
-# coding: utf-8
+# frozen_string_literal: true
 
 begin
   require "./lib/requirejs_integrator/version"
 rescue LoadError
-  module RequirejsIntegrator; VERSION = "0".freeze; end
+  module RequirejsIntegrator; VERSION = "0"; end
 end
 
 Gem::Specification.new do |spec|
@@ -22,10 +22,10 @@ Gem::Specification.new do |spec|
   spec.executables   = spec.files.grep(%r{^bin/}) { |f| File.basename(f) }
 
   spec.add_runtime_dependency "piko_model", "~>1"
-
   spec.add_development_dependency "rake"
   spec.add_development_dependency "pry"
   spec.add_development_dependency "minitest"
   spec.add_development_dependency "minitest-reporters"
+  spec.add_development_dependency "simplecov"
   spec.add_development_dependency "codeclimate-test-reporter"
 end
