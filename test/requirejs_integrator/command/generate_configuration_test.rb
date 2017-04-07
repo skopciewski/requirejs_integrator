@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 require "test_helper"
 require "requirejs_integrator/command/generate_configuration"
 require "requirejs_integrator/config"
